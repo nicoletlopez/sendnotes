@@ -47,6 +47,7 @@ class User extends Authenticatable
         ];
     }
 
+
     /**
      * Get the user's initials
      */
@@ -55,7 +56,20 @@ class User extends Authenticatable
         return Str::of($this->name)
             ->explode(' ')
             ->take(2)
-            ->map(fn ($word) => Str::substr($word, 0, 1))
+            ->map(fn($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
+
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
+
+    // public function superUser(){
+    //     return $this->hasOne(SuperUser::class);
+    // }
+
+    // auth()->user()->notes()->create();
+
+    // $note->user()->name;
 }

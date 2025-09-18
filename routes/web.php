@@ -11,6 +11,25 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::view(
+    'notes',
+    'notes.index',
+    // function(){
+    //     return view('notes.index',[
+    //         'notes'=>auth()->user()->notes
+    //     ]);
+    // }
+)
+    ->middleware(['auth', 'verified'])
+    ->name('notes.index');
+
+Route::view(
+    'notes/create',
+    'notes.create',
+)
+    ->middleware(['auth', 'verified'])
+    ->name('notes.create');
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
@@ -19,4 +38,4 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
