@@ -30,6 +30,11 @@ Route::view(
     ->middleware(['auth', 'verified'])
     ->name('notes.create');
 
+Volt::route('notes/{note}/edit', 'notes.edit-note')
+    ->middleware(['auth', 'verified'])
+    ->name('notes.edit');
+
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
