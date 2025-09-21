@@ -1,8 +1,15 @@
 <?php
 
 use Livewire\Volt\Component;
+use App\Models\Note;
 
 new class extends Component {
+    public function delete($noteId)
+    {
+        $note = Note::where('id', $noteId)->first();
+        $note->delete();
+    }
+
     public function with(): array
     {
         return [
@@ -18,6 +25,8 @@ new class extends Component {
 
 <div>
     <div class="space-y-2">
+        <x-button primary right-icon="plus" href="{{ route('notes.create') }}" wire:navigate>Create
+            Note</x-button>
         @if ($notes->isEmpty())
             <div class="text-center">
                 <p class="text-gray-500">You have no notes yet.</p>
@@ -28,13 +37,16 @@ new class extends Component {
                 </div>
             </div>
         @else
-            <div class="grid grid-cols-2 gap-4 mt-12">
+            <div class="grid grid-cols-3 gap-4 mt-12">
                 @foreach ($notes as $note)
                     <x-card wire:key='{{ $note->id }}'>
                         <div class="flex justify-between">
-                            <a href="#" class="text-xl font-bold hover:underline hover:text-blue-500">
-                                {{ $note->title }}
-                            </a>
+                            <div>
+                                <a href="#" class="text-xl font-bold hover:underline hover:text-blue-500">
+                                    {{ $note->title }}
+                                </a>
+                                <p class="text-xs mt-2">{{ Str::limit($note->body, 50) }}</p>
+                            </div>
                             <div class="text-xs text-gray-500">
                                 {{ \Carbon\Carbon::parse($note->send_date)->format('M-d-Y') }}
                             </div>
@@ -45,7 +57,8 @@ new class extends Component {
                             </p>
                             <div>
                                 <x-mini-button icon="eye" rounded></x-mini-button>
-                                <x-mini-button icon="trash" rounded></x-mini-button>
+                                <x-mini-button icon="trash" rounded
+                                    wire:click="delete('{{ $note->id }}')"></x-mini-button>
                             </div>
                         </div>
                     </x-card>
