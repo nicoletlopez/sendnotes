@@ -9,7 +9,7 @@ namespace App\Models {
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property int $heart_count
-     * @property bool $is_published
+     * @property boolean $is_published
      * @property string $send_date
      * @property string $body
      * @property string $title

@@ -275,7 +275,7 @@ class Kernel implements KernelContract
      */
     protected function schedule(Schedule $schedule)
     {
-        //
+        $schedule->command('app:send-scheduled-notes')->timezone('America/New_York')->dailyAt('09:00');
     }
 
     /**
